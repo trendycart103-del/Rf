@@ -16,6 +16,10 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: 8.9
+      - name: Unzip project
+        run: |
+          ZIP=$(ls *.zip 2>/dev/null | head -1)
+          if [ -n "$ZIP" ]; then unzip -oq "$ZIP"; fi
       - name: Build debug APK
         run: |
           FILE=$(find . -name settings.gradle.kts -not -path './.git/*' | head -1)
